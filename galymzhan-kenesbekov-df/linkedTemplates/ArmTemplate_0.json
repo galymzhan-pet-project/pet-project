@@ -1,0 +1,844 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "galymzhan-kenesbekov-df"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "this is my currency dim table",
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dimCompanyLocation')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "company_location",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "company_location"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dimCompanySize')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "company_size",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "company_size"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dim_employee_residence')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "employee_residence",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "salary_employee_residence_dim"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dim_employment_type')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "employment_type",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "salary_employment_type_dim"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dim_experience_level')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "experience_level",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "salary_experience_level_dim"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dim_salary_currency')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "salary_currency",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "salary_currency"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_salary')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "ds_salaries.csv",
+						"container": "input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "primary_key",
+						"type": "String"
+					},
+					{
+						"name": "work_year",
+						"type": "String"
+					},
+					{
+						"name": "experience_level",
+						"type": "String"
+					},
+					{
+						"name": "employment_type",
+						"type": "String"
+					},
+					{
+						"name": "job_title",
+						"type": "String"
+					},
+					{
+						"name": "salary",
+						"type": "String"
+					},
+					{
+						"name": "salary_currency",
+						"type": "String"
+					},
+					{
+						"name": "salary_in_usd",
+						"type": "String"
+					},
+					{
+						"name": "employee_residence",
+						"type": "String"
+					},
+					{
+						"name": "remote_ratio",
+						"type": "String"
+					},
+					{
+						"name": "company_location",
+						"type": "String"
+					},
+					{
+						"name": "company_size",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/factSalary')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "primary_key",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "work_year",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "experience_level",
+						"type": "varchar"
+					},
+					{
+						"name": "employment_type",
+						"type": "varchar"
+					},
+					{
+						"name": "job_title",
+						"type": "varchar"
+					},
+					{
+						"name": "salary",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "salary_currency",
+						"type": "varchar"
+					},
+					{
+						"name": "salary_in_usd",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "employee_residence",
+						"type": "varchar"
+					},
+					{
+						"name": "remote_ratio",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "company_location",
+						"type": "varchar"
+					},
+					{
+						"name": "company_size",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "fact_salary"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_salary",
+								"type": "DatasetReference"
+							},
+							"name": "source2"
+						},
+						{
+							"dataset": {
+								"referenceName": "ds_salary",
+								"type": "DatasetReference"
+							},
+							"name": "source3"
+						},
+						{
+							"dataset": {
+								"referenceName": "ds_salary",
+								"type": "DatasetReference"
+							},
+							"name": "source4"
+						},
+						{
+							"dataset": {
+								"referenceName": "ds_salary",
+								"type": "DatasetReference"
+							},
+							"name": "source5"
+						},
+						{
+							"dataset": {
+								"referenceName": "ds_salary",
+								"type": "DatasetReference"
+							},
+							"name": "source6"
+						},
+						{
+							"dataset": {
+								"referenceName": "ds_salary",
+								"type": "DatasetReference"
+							},
+							"name": "source7"
+						},
+						{
+							"dataset": {
+								"referenceName": "ds_salary",
+								"type": "DatasetReference"
+							},
+							"name": "source8"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "dim_experience_level",
+								"type": "DatasetReference"
+							},
+							"name": "ExperienceLevelSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "dim_employment_type",
+								"type": "DatasetReference"
+							},
+							"name": "EmploymentTypeSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "dim_salary_currency",
+								"type": "DatasetReference"
+							},
+							"name": "SalaryCurrencySink"
+						},
+						{
+							"dataset": {
+								"referenceName": "dim_employee_residence",
+								"type": "DatasetReference"
+							},
+							"name": "EmployeeResidenceSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "dimCompanyLocation",
+								"type": "DatasetReference"
+							},
+							"name": "CompanyLocationSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "factSalary",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						},
+						{
+							"dataset": {
+								"referenceName": "dimCompanySize",
+								"type": "DatasetReference"
+							},
+							"name": "CompanySizeSink"
+						}
+					],
+					"transformations": [
+						{
+							"name": "ExperienceLevelAggregation"
+						},
+						{
+							"name": "ExperienceLevelSelect"
+						},
+						{
+							"name": "EmploymentTypeAggregation"
+						},
+						{
+							"name": "EmploymentTypeSelect"
+						},
+						{
+							"name": "SalaryCurrencyAggregation"
+						},
+						{
+							"name": "SalaryCurrencySelection"
+						},
+						{
+							"name": "EmployeeResidenceAggregation"
+						},
+						{
+							"name": "EmployeeResidenceSelection"
+						},
+						{
+							"name": "CompanyLocationAggregation"
+						},
+						{
+							"name": "CompanyLocationSelection"
+						},
+						{
+							"name": "CompanySizeAggregation"
+						},
+						{
+							"name": "CompanySizeSelection"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          primary_key as string,",
+						"          work_year as string,",
+						"          experience_level as string,",
+						"          employment_type as string,",
+						"          job_title as string,",
+						"          salary as string,",
+						"          salary_currency as string,",
+						"          salary_in_usd as string,",
+						"          employee_residence as string,",
+						"          remote_ratio as string,",
+						"          company_location as string,",
+						"          company_size as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source2",
+						"source(output(",
+						"          primary_key as string,",
+						"          work_year as string,",
+						"          experience_level as string,",
+						"          employment_type as string,",
+						"          job_title as string,",
+						"          salary as string,",
+						"          salary_currency as string,",
+						"          salary_in_usd as string,",
+						"          employee_residence as string,",
+						"          remote_ratio as string,",
+						"          company_location as string,",
+						"          company_size as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source3",
+						"source(output(",
+						"          primary_key as string,",
+						"          work_year as string,",
+						"          experience_level as string,",
+						"          employment_type as string,",
+						"          job_title as string,",
+						"          salary as string,",
+						"          salary_currency as string,",
+						"          salary_in_usd as string,",
+						"          employee_residence as string,",
+						"          remote_ratio as string,",
+						"          company_location as string,",
+						"          company_size as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source4",
+						"source(output(",
+						"          primary_key as string,",
+						"          work_year as string,",
+						"          experience_level as string,",
+						"          employment_type as string,",
+						"          job_title as string,",
+						"          salary as string,",
+						"          salary_currency as string,",
+						"          salary_in_usd as string,",
+						"          employee_residence as string,",
+						"          remote_ratio as string,",
+						"          company_location as string,",
+						"          company_size as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source5",
+						"source(output(",
+						"          primary_key as string,",
+						"          work_year as string,",
+						"          experience_level as string,",
+						"          employment_type as string,",
+						"          job_title as string,",
+						"          salary as string,",
+						"          salary_currency as string,",
+						"          salary_in_usd as string,",
+						"          employee_residence as string,",
+						"          remote_ratio as string,",
+						"          company_location as string,",
+						"          company_size as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source6",
+						"source(output(",
+						"          primary_key as string,",
+						"          work_year as string,",
+						"          experience_level as string,",
+						"          employment_type as string,",
+						"          job_title as string,",
+						"          salary as string,",
+						"          salary_currency as string,",
+						"          salary_in_usd as string,",
+						"          employee_residence as string,",
+						"          remote_ratio as string,",
+						"          company_location as string,",
+						"          company_size as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source7",
+						"source(output(",
+						"          primary_key as string,",
+						"          work_year as string,",
+						"          experience_level as string,",
+						"          employment_type as string,",
+						"          job_title as string,",
+						"          salary as string,",
+						"          salary_currency as string,",
+						"          salary_in_usd as string,",
+						"          employee_residence as string,",
+						"          remote_ratio as string,",
+						"          company_location as string,",
+						"          company_size as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source8",
+						"source2 aggregate(groupBy(experience_level),",
+						"     each(match(name!='experience_level'), $$ = first($$))) ~> ExperienceLevelAggregation",
+						"ExperienceLevelAggregation select(mapColumn(",
+						"          experience_level",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> ExperienceLevelSelect",
+						"source3 aggregate(groupBy(employment_type),",
+						"     each(match(name!='employment_type'), $$ = first($$))) ~> EmploymentTypeAggregation",
+						"EmploymentTypeAggregation select(mapColumn(",
+						"          employment_type",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> EmploymentTypeSelect",
+						"source4 aggregate(groupBy(salary_currency),",
+						"     each(match(name!='salary_currency'), $$ = first($$))) ~> SalaryCurrencyAggregation",
+						"SalaryCurrencyAggregation select(mapColumn(",
+						"          salary_currency",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SalaryCurrencySelection",
+						"source5 aggregate(groupBy(employee_residence),",
+						"     each(match(name!='employee_residence'), $$ = first($$))) ~> EmployeeResidenceAggregation",
+						"EmployeeResidenceAggregation select(mapColumn(",
+						"          employee_residence",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> EmployeeResidenceSelection",
+						"source6 aggregate(groupBy(company_location),",
+						"     each(match(name!='company_location'), $$ = first($$))) ~> CompanyLocationAggregation",
+						"CompanyLocationAggregation select(mapColumn(",
+						"          company_location",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> CompanyLocationSelection",
+						"source7 aggregate(groupBy(company_size),",
+						"     each(match(name!='company_size'), $$ = first($$))) ~> CompanySizeAggregation",
+						"CompanySizeAggregation select(mapColumn(",
+						"          company_size",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> CompanySizeSelection",
+						"ExperienceLevelSelect sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          experience_level as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> ExperienceLevelSink",
+						"EmploymentTypeSelect sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          employment_type as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> EmploymentTypeSink",
+						"SalaryCurrencySelection sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          salary_currency as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> SalaryCurrencySink",
+						"EmployeeResidenceSelection sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          employee_residence as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> EmployeeResidenceSink",
+						"CompanyLocationSelection sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          company_location as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> CompanyLocationSink",
+						"source8 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          primary_key as integer,",
+						"          work_year as integer,",
+						"          experience_level as string,",
+						"          employment_type as string,",
+						"          job_title as string,",
+						"          salary as integer,",
+						"          salary_currency as string,",
+						"          salary_in_usd as integer,",
+						"          employee_residence as string,",
+						"          remote_ratio as integer,",
+						"          company_location as string,",
+						"          company_size as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sink1",
+						"CompanySizeSelection sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          company_size as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> CompanySizeSink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_salary')]",
+				"[concat(variables('factoryId'), '/datasets/dim_experience_level')]",
+				"[concat(variables('factoryId'), '/datasets/dim_employment_type')]",
+				"[concat(variables('factoryId'), '/datasets/dim_salary_currency')]",
+				"[concat(variables('factoryId'), '/datasets/dim_employee_residence')]",
+				"[concat(variables('factoryId'), '/datasets/dimCompanyLocation')]",
+				"[concat(variables('factoryId'), '/datasets/factSalary')]",
+				"[concat(variables('factoryId'), '/datasets/dimCompanySize')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source2": {},
+									"source3": {},
+									"source4": {},
+									"source5": {},
+									"source6": {},
+									"source7": {},
+									"source8": {},
+									"ExperienceLevelSink": {},
+									"EmploymentTypeSink": {},
+									"SalaryCurrencySink": {},
+									"EmployeeResidenceSink": {},
+									"CompanyLocationSink": {},
+									"sink1": {},
+									"CompanySizeSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-09-09T12:54:03Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+			]
+		}
+	]
+}
