@@ -1,0 +1,71 @@
+{
+	"name": "factSalary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "primary_key",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "work_year",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "experience_level",
+				"type": "varchar"
+			},
+			{
+				"name": "employment_type",
+				"type": "varchar"
+			},
+			{
+				"name": "job_title",
+				"type": "varchar"
+			},
+			{
+				"name": "salary",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "salary_currency",
+				"type": "varchar"
+			},
+			{
+				"name": "salary_in_usd",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "employee_residence",
+				"type": "varchar"
+			},
+			{
+				"name": "remote_ratio",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "company_location",
+				"type": "varchar"
+			},
+			{
+				"name": "company_size",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "fact_salary"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

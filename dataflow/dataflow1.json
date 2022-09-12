@@ -1,0 +1,413 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_salary",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_salary",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_salary",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_salary",
+						"type": "DatasetReference"
+					},
+					"name": "source5"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_salary",
+						"type": "DatasetReference"
+					},
+					"name": "source6"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_salary",
+						"type": "DatasetReference"
+					},
+					"name": "source7"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_salary",
+						"type": "DatasetReference"
+					},
+					"name": "source8"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dim_experience_level",
+						"type": "DatasetReference"
+					},
+					"name": "ExperienceLevelSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "dim_employment_type",
+						"type": "DatasetReference"
+					},
+					"name": "EmploymentTypeSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "dim_salary_currency",
+						"type": "DatasetReference"
+					},
+					"name": "SalaryCurrencySink"
+				},
+				{
+					"dataset": {
+						"referenceName": "dim_employee_residence",
+						"type": "DatasetReference"
+					},
+					"name": "EmployeeResidenceSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "dimCompanyLocation",
+						"type": "DatasetReference"
+					},
+					"name": "CompanyLocationSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "factSalary",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "dimCompanySize",
+						"type": "DatasetReference"
+					},
+					"name": "CompanySizeSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ExperienceLevelAggregation"
+				},
+				{
+					"name": "ExperienceLevelSelect"
+				},
+				{
+					"name": "EmploymentTypeAggregation"
+				},
+				{
+					"name": "EmploymentTypeSelect"
+				},
+				{
+					"name": "SalaryCurrencyAggregation"
+				},
+				{
+					"name": "SalaryCurrencySelection"
+				},
+				{
+					"name": "EmployeeResidenceAggregation"
+				},
+				{
+					"name": "EmployeeResidenceSelection"
+				},
+				{
+					"name": "CompanyLocationAggregation"
+				},
+				{
+					"name": "CompanyLocationSelection"
+				},
+				{
+					"name": "CompanySizeAggregation"
+				},
+				{
+					"name": "CompanySizeSelection"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          primary_key as string,",
+				"          work_year as string,",
+				"          experience_level as string,",
+				"          employment_type as string,",
+				"          job_title as string,",
+				"          salary as string,",
+				"          salary_currency as string,",
+				"          salary_in_usd as string,",
+				"          employee_residence as string,",
+				"          remote_ratio as string,",
+				"          company_location as string,",
+				"          company_size as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source(output(",
+				"          primary_key as string,",
+				"          work_year as string,",
+				"          experience_level as string,",
+				"          employment_type as string,",
+				"          job_title as string,",
+				"          salary as string,",
+				"          salary_currency as string,",
+				"          salary_in_usd as string,",
+				"          employee_residence as string,",
+				"          remote_ratio as string,",
+				"          company_location as string,",
+				"          company_size as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source3",
+				"source(output(",
+				"          primary_key as string,",
+				"          work_year as string,",
+				"          experience_level as string,",
+				"          employment_type as string,",
+				"          job_title as string,",
+				"          salary as string,",
+				"          salary_currency as string,",
+				"          salary_in_usd as string,",
+				"          employee_residence as string,",
+				"          remote_ratio as string,",
+				"          company_location as string,",
+				"          company_size as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source4",
+				"source(output(",
+				"          primary_key as string,",
+				"          work_year as string,",
+				"          experience_level as string,",
+				"          employment_type as string,",
+				"          job_title as string,",
+				"          salary as string,",
+				"          salary_currency as string,",
+				"          salary_in_usd as string,",
+				"          employee_residence as string,",
+				"          remote_ratio as string,",
+				"          company_location as string,",
+				"          company_size as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source5",
+				"source(output(",
+				"          primary_key as string,",
+				"          work_year as string,",
+				"          experience_level as string,",
+				"          employment_type as string,",
+				"          job_title as string,",
+				"          salary as string,",
+				"          salary_currency as string,",
+				"          salary_in_usd as string,",
+				"          employee_residence as string,",
+				"          remote_ratio as string,",
+				"          company_location as string,",
+				"          company_size as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source6",
+				"source(output(",
+				"          primary_key as string,",
+				"          work_year as string,",
+				"          experience_level as string,",
+				"          employment_type as string,",
+				"          job_title as string,",
+				"          salary as string,",
+				"          salary_currency as string,",
+				"          salary_in_usd as string,",
+				"          employee_residence as string,",
+				"          remote_ratio as string,",
+				"          company_location as string,",
+				"          company_size as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source7",
+				"source(output(",
+				"          primary_key as string,",
+				"          work_year as string,",
+				"          experience_level as string,",
+				"          employment_type as string,",
+				"          job_title as string,",
+				"          salary as string,",
+				"          salary_currency as string,",
+				"          salary_in_usd as string,",
+				"          employee_residence as string,",
+				"          remote_ratio as string,",
+				"          company_location as string,",
+				"          company_size as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source8",
+				"source2 aggregate(groupBy(experience_level),",
+				"     each(match(name!='experience_level'), $$ = first($$))) ~> ExperienceLevelAggregation",
+				"ExperienceLevelAggregation select(mapColumn(",
+				"          experience_level",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> ExperienceLevelSelect",
+				"source3 aggregate(groupBy(employment_type),",
+				"     each(match(name!='employment_type'), $$ = first($$))) ~> EmploymentTypeAggregation",
+				"EmploymentTypeAggregation select(mapColumn(",
+				"          employment_type",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> EmploymentTypeSelect",
+				"source4 aggregate(groupBy(salary_currency),",
+				"     each(match(name!='salary_currency'), $$ = first($$))) ~> SalaryCurrencyAggregation",
+				"SalaryCurrencyAggregation select(mapColumn(",
+				"          salary_currency",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SalaryCurrencySelection",
+				"source5 aggregate(groupBy(employee_residence),",
+				"     each(match(name!='employee_residence'), $$ = first($$))) ~> EmployeeResidenceAggregation",
+				"EmployeeResidenceAggregation select(mapColumn(",
+				"          employee_residence",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> EmployeeResidenceSelection",
+				"source6 aggregate(groupBy(company_location),",
+				"     each(match(name!='company_location'), $$ = first($$))) ~> CompanyLocationAggregation",
+				"CompanyLocationAggregation select(mapColumn(",
+				"          company_location",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CompanyLocationSelection",
+				"source7 aggregate(groupBy(company_size),",
+				"     each(match(name!='company_size'), $$ = first($$))) ~> CompanySizeAggregation",
+				"CompanySizeAggregation select(mapColumn(",
+				"          company_size",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CompanySizeSelection",
+				"ExperienceLevelSelect sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          experience_level as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> ExperienceLevelSink",
+				"EmploymentTypeSelect sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          employment_type as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> EmploymentTypeSink",
+				"SalaryCurrencySelection sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          salary_currency as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> SalaryCurrencySink",
+				"EmployeeResidenceSelection sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          employee_residence as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> EmployeeResidenceSink",
+				"CompanyLocationSelection sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          company_location as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> CompanyLocationSink",
+				"source8 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          primary_key as integer,",
+				"          work_year as integer,",
+				"          experience_level as string,",
+				"          employment_type as string,",
+				"          job_title as string,",
+				"          salary as integer,",
+				"          salary_currency as string,",
+				"          salary_in_usd as integer,",
+				"          employee_residence as string,",
+				"          remote_ratio as integer,",
+				"          company_location as string,",
+				"          company_size as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1",
+				"CompanySizeSelection sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          company_size as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> CompanySizeSink"
+			]
+		}
+	}
+}

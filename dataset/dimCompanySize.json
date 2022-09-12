@@ -1,0 +1,22 @@
+{
+	"name": "dimCompanySize",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "company_size",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "company_size"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

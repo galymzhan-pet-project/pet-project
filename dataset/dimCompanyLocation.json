@@ -1,0 +1,22 @@
+{
+	"name": "dimCompanyLocation",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "company_location",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "company_location"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

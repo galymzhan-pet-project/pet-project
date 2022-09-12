@@ -1,0 +1,22 @@
+{
+	"name": "dim_salary_currency",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "salary_currency",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "salary_currency"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

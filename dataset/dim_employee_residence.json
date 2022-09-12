@@ -1,0 +1,22 @@
+{
+	"name": "dim_employee_residence",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "employee_residence",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "salary_employee_residence_dim"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

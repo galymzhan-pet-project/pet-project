@@ -1,0 +1,22 @@
+{
+	"name": "dim_employment_type",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "employment_type",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "salary_employment_type_dim"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

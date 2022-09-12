@@ -1,0 +1,22 @@
+{
+	"name": "dim_experience_level",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "experience_level",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "salary_experience_level_dim"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

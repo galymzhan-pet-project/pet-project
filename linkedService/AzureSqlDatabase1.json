@@ -1,0 +1,13 @@
+{
+	"name": "AzureSqlDatabase1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "this is my currency dim table",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=pet-project.database.windows.net;initial catalog=pet_project_DB;user id=GalymzhanKenesbekov",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDNENjkwRTA0LTM0QzUtNDY2OS04OEVCLTAzM0UwMUNGNEVFNF9iNDk4NTAzYi1lZWE2LTRlMmUtOWYwNC1mMzNkNjU3YjkyYmYiDQp9"
+		}
+	}
+}
