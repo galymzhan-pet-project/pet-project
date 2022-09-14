@@ -67,6 +67,206 @@
 							},
 							"traceLevel": "Fine"
 						}
+					},
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "primary_key",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "primary_key",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "work_year",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "work_year",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "experience_level",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "experience_level",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "employment_type",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "employment_type",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "job_title",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "job_title",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "salary",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "salary",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "salary_currency",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "salary_currency",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "salary_in_usd",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "salary_in_usd",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "employee_residence",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "employee_residence",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "remote_ratio",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "remote_ratio",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "company_location",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "company_location",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "company_size",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "company_size",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_salary",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "factSalary",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -77,7 +277,9 @@
 				"lastPublishTime": "2022-09-09T12:54:03Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]",
+				"[concat(variables('factoryId'), '/datasets/ds_salary')]",
+				"[concat(variables('factoryId'), '/datasets/factSalary')]"
 			]
 		},
 		{
